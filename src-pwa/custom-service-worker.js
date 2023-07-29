@@ -28,3 +28,17 @@ if (process.env.MODE !== 'ssr' || process.env.PROD) {
     )
   )
 }
+
+let Client = null;
+addEventListener('message',ev => {
+  console.log('SW Received Message (csw)',{ data:ev.data })
+  if(ev.data && ev.data.type === 'SetClient') Client = ev.source;
+})
+
+/*
+function Ping(){
+  if(Client) Client.postMessage({ type:'Ping',content:Math.random() })
+  setTimeout(Ping,10000)
+}
+Ping();
+*/

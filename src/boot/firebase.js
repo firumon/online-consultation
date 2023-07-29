@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getFirestore,doc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCcRSq6K213Zn_64FKVfQP-GvGKqDlEykk",
@@ -10,3 +11,6 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
+export const firestore = getFirestore(app);
+export const ROCRef = doc(firestore,'OnlineConsultation/Rafshina')
+

@@ -1,8 +1,8 @@
 {
   "name": "online-consultation",
   "version": "0.0.1",
-  "description": "Dr. Rafshina Hashmi BHMS - Online Consultation",
-  "productName": "online-consultation",
+  "description": "Dr. Rafshina Hashmi, Homeopathic Doctor, Reg No: 13520. Online consultation available and get medicines at your doorstep. Visit now or call/whatspp at 8075542152",
+  "productName": "Dr. Rafshina Hashmi",
   "author": "Firose Hussain <github@firumon.com>",
   "private": true,
   "scripts": {
@@ -16,7 +16,8 @@
     "pinia": "^2.0.11",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.0"
+    "vue-router": "^4.0.0",
+    "vuefire": "^3.1.12"
   },
   "devDependencies": {
     "@quasar/app-vite": "^1.0.0",

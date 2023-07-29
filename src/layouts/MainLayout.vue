@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf" style="background: url('background.jpg') top left no-repeat; background-size: cover">
+  <q-layout view="lHh Lpr lFf" style="background: url('background.jpg') top left no-repeat fixed; background-size: cover;">
     <q-header elevated >
       <q-toolbar>
         <q-toolbar-title>Dr. Rafshina Hashmi</q-toolbar-title>
