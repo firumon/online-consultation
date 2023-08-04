@@ -13,5 +13,4 @@
   </q-layout>
 </template>
 
-<script>
-</script>
+<script></script>

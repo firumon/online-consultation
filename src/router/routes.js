@@ -4,7 +4,14 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') }
+      { path: '', component: () => import('pages/IndexPage.vue') },
+    ]
+  },
+  {
+    path: '/',
+    component: () => import('layouts/AdminLayout.vue'),
+    children: [
+      { path: 'iama', component: () => import('pages/AdminPage.vue') },
     ]
   },
 
