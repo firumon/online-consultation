@@ -33,10 +33,10 @@ if (process.env.MODE !== 'ssr' || process.env.PROD) {
   )
 }
 
-let Client = null;
+let SWClient = null;
 addEventListener('message',ev => {
   if(ev.data){
-    if(ev.data.type === 'SetClient') Client = ev.source;
+    if(ev.data.type === 'SetClient') SWClient = ev.source;
     if(ev.data.type === 'bookings') SetAndMonitor(ev.data.bookings);
   }
 })
@@ -101,14 +101,14 @@ function ItsACancelledBooking(No){
       let nB2 = zipObj(nB.head,nB.booking);
       Bookings[nB2.No] = nB2;
       if(Bookings[No].Status === "Cancelled"){
-        FireNotification("Booking Cancelled",`Token Number ${No} of ${Bookings[No].Name} has been cancelled..`,No)
         FireNotification("Awaiting Bookings",Pending().length ? `Total ${Pending().length} Bookings Awaiting. Waiting list: ${Pending().join(', ')}` : 'There are no any bookings pending now..','rocpending')
+        FireNotification("Booking Cancelled",`Token Number ${No} of ${Bookings[No].Name} has been cancelled..`,No)
       }
     })
   } else {
     Bookings[No].Status = "Cancelled"
-    FireNotification("Booking Cancelled",`Token Number ${No} of ${Bookings[No].Name} has been cancelled..`,No)
     FireNotification("Awaiting Bookings",Pending().length ? `Total ${Pending().length} Bookings Awaiting. Waiting list: ${Pending().join(', ')}` : 'There are no any bookings pending now..','rocpending')
+    FireNotification("Booking Cancelled",`Token Number ${No} of ${Bookings[No].Name} has been cancelled..`,No)
   }
 }
 function ItsACompletedBooking(No){
@@ -118,7 +118,7 @@ function ItsACompletedBooking(No){
       let nB2 = zipObj(nB.head,nB.booking);
       Bookings[nB2.No] = nB2;
       if(Bookings[No].Status === "Completed"){
-        self.registration.getNotifications({ tag:No }).then(notification => notification.close())
+        self.registration.getNotifications({ tag:No }).then(notifications => notifications.forEach(notification => notification.close()))
       }
     })
   } else {
@@ -131,24 +131,25 @@ function ItsANewBooking(No){
   fetch(url).then(resp => resp.json()).then(nB => {
     let nB2 = zipObj(nB.head,nB.booking);
     Bookings[nB2.No] = nB2;
-    FireNotification('New Booking',`${nB2.Name} Booked just now. Token Number assigned is: ${nB2.No}.`,No)
     FireNotification("Awaiting Bookings",Pending().length ? `Total ${Pending().length} Bookings Awaiting. Waiting list: ${Pending().join(', ')}` : 'There are no any bookings pending now..','rocpending')
+    FireNotification('New Booking',`${nB2.Name} booked just now. Token Number assigned is: ${nB2.No}.`,No)
   })
 }
 
 function FireNotification(title,body,tag){
   let notifyOptions = {
     body, tag, renotify: true, data: { time:new Date().getTime(),booking:title === 'New Booking' },
-    image: 'https://rafshiadmin.web.app/image.jpg', badge: 'https://rafshiadmin.web.app/badge.jpg', icon: 'https://rafshiadmin.web.app/icon.jpg',
+    image: 'https://rafshiadmin.web.app/image'+((title.indexOf('New') > -1) ? '-new-booking' : ((title.indexOf('Cancelled') > -1) ? '-booking-cancelled' : ((title.indexOf('Awaiting') > -1) ? '-awaiting-booking' : '')))+'.jpg', badge: 'https://rafshiadmin.web.app/badge.png', icon: 'https://rafshiadmin.web.app/icon.png',
     actions: [{ title:'View in Application',action:'rocopen' }]
   }
-  self.registration.showNotification(title, notifyOptions).then(null)
+  if(SWClient) SWClient.postMessage({ type:'notify',content:{ title,notifyOptions } })
+  // self.registration.showNotification(title, notifyOptions).then(null)
 }
 setInterval(() => {
   self.registration.getNotifications().then(notifies => {
     notifies.forEach(notification => {
-      let { time,booking } = notification.data;
-      if(!booking) return true;
+      let { time,booking } = notification?.data || ({});
+      if(!booking || !time) return true;
       if(new Date().getTime() - time > 120000) FireNotification(notification.title,notification.body,notification.tag)
     })
   })

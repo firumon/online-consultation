@@ -35,7 +35,7 @@
           <q-btn label="ക്യാൻസൽ ചെയ്യേണ്ടതില്ല" color="positive" v-close-popup no-wrap />
           <q-btn label="ക്യാൻസൽ ചെയ്യൂ.." color="negative" @click="cancelBooking" no-wrap />
         </q-card-actions>
-        <q-inner-loading :showing="misc.cancelling" size="xl" label="ക്യാൻസൽ ചെയ്തുകൊണ്ടിരിക്കുകയാണ്... ഒന്ന് വെയിറ്റ് ചെയ്യൂ.." color="warning" />
+        <q-inner-loading :showing="misc.cancelling" label="ക്യാൻസൽ ചെയ്തുകൊണ്ടിരിക്കുകയാണ്... ഒന്ന് വെയിറ്റ് ചെയ്യൂ.." color="warning" />
       </q-card>
     </q-dialog>
   </q-card>
