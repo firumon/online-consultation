@@ -1,6 +1,6 @@
 {
   "name": "online-consultation",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Dr. Rafshina Hashmi, Homeopathic Doctor, Reg No: 13520. Online consultation available and get medicines at your doorstep. Visit now or call/whatspp at 8075542152",
   "productName": "Dr. Rafshina Hashmi",
   "author": "Firose Hussain <github@firumon.com>",
@@ -8,7 +8,8 @@
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev -m pwa",
-    "build": "quasar build -m pwa && firebase deploy --only hosting:rafshi"
+    "build": "quasar build -m pwa && firebase deploy --only hosting:rafshi",
+    "build2": "quasar build -m pwa && firebase deploy --only hosting:rafshiadmin"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",

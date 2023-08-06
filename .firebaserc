@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "firumon-9abec"
-  }
+  },
+  "targets": {
+    "firumon-9abec": {
+      "hosting": {
+        "rafshiadmin": [
+          "rafshiadmin"
+        ],
+        "rafshi": [
+          "rafshi"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

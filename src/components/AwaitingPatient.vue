@@ -24,7 +24,7 @@ const emits = defineEmits(['cancel','consult'])
 
 const misc = reactive({ since:0 })
 
-const href = computed(() => props.Phone ? ('https://api.whatsapp.com/send?phone='+(String(props.Phone).length === 10 ? ("91"+props.Phone) : props.Phone)+'&text='+encodeURI("Hi, "+props.Name+"..")) : null)
+const href = computed(() => props.booking?.Phone ? ('https://api.whatsapp.com/send?phone='+(String(props.booking.Phone).length === 10 ? ("91"+props.booking.Phone) : props.booking.Phone)+'&text='+encodeURI("Hi, "+props.booking.Name+"..")) : null)
 function tDiff(date){ return parseFloat(getDateDiff(new Date(),date,'seconds')/60).toFixed(2).replace(".",":") }
 setInterval(() => misc.since++,3000)
 </script>

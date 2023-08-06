@@ -12,7 +12,7 @@ import DoctorConsulting from "components/DoctorConsulting.vue";
 import AwaitingBookings from "components/AwaitingBookings.vue";
 import {SET_BOOKINGS} from "assets/booking";
 import {SHEET_URL, zipObj} from "assets/constants";
-import {computed, inject, onMounted, reactive, ref, watch} from "vue";
+import {computed, inject, onMounted, reactive, ref, watch, toRaw} from "vue";
 import CancelConfirm from "components/CancelConfirm.vue";
 
 const misc = reactive({ loading:true,head:null,cancelling:null,synced:false,online:[],offline:[] })
@@ -25,12 +25,16 @@ const cancel = computed({
   set(){ return misc.cancelling = null }
 })
 
+function AddToBooking(id,bArray){
+  if(!misc.head) return setTimeout(AddToBooking,1000,id,bArray)
+  bookings.value[id] = zipObj(misc.head,bArray)
+}
 watch(() => DOCState.value,({ Awaiting,Cancelled,Completed,Consulting }) => {
   Awaiting.forEach(id => {
     let mUrl = SHEET_URL + '?action=s02&head=false&no='
     if(bookings.value.hasOwnProperty(id)) return true;
     fetch(mUrl + id).then(resp => resp.json()).then(({ booking:bArray }) => {
-      if(bArray[0]) bookings.value[bArray[0]] = zipObj(misc.head,bArray)
+      if(bArray[0]) AddToBooking(bArray[0],bArray)
     })
   })
   Cancelled.forEach(id => {
@@ -73,8 +77,8 @@ async function synchronize(){
     else updates[booking.Status].push(parseInt(booking.No))
   })
   SET_BOOKINGS(updates).then(() => {
-    setTimeout(getFromSheet,0.5*60*60*1000)
-    misc.loading = false; misc.synced = true;
+    setTimeout(getFromSheet,0.5*60*60*1000); misc.loading = false;
+    if(!misc.synced) initSW(); misc.synced = true;
   })
 }
 
@@ -86,6 +90,10 @@ function getFromSheet(){
     synchronize()
   })
 }
-
+function initSW(){
+  navigator.serviceWorker.ready.then(swr => {
+    navigator.serviceWorker.controller.postMessage({ type:'bookings',bookings:toRaw(bookings.value) })
+  })
+}
 onMounted(getFromSheet)
 </script>

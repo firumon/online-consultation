@@ -7,13 +7,15 @@ const routes = [
       { path: '', component: () => import('pages/IndexPage.vue') },
     ]
   },
+/*
   {
     path: '/',
     component: () => import('layouts/AdminLayout.vue'),
     children: [
-      { path: 'iama', component: () => import('pages/AdminPage.vue') },
+      { path: '', component: () => import('pages/AdminPage.vue') },
     ]
   },
+*/
 
   // Always leave this as last one,
   // but you can also remove it

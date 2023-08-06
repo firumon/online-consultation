@@ -1,8 +1,8 @@
 <template>
   <q-card>
     <q-card-section class="text-bold">
-      ഡോക്ടറെ കാണുന്നതിന് വേണ്ടി ഇവിടെ പേരും, ഫോൺ നമ്പറും നൽകി ബുക്ക് ചെയ്യുക..
-      <div class="text-body1">ഡോക്ടർ ഉടൻ തന്നെ നിങ്ങളിലേക്ക് എത്തുന്നതാണ്.. താഴെ നൽകുന്ന വാട്സ്ആപ് നമ്പറിലേക്ക് വീഡിയോ കോൾ വഴി ഡോക്ടർ നിങ്ങളുമായി നേരിട്ട് സംവദിക്കും.. അതിനു ശേഷം ആവിശ്യമായ മരുന്നുകൾ നിങ്ങളുടെ അഡ്രസ്സിലേക്കു കൊറിയർ ചെയ്യുകയും ചെയ്യുന്നതാണ്..</div>
+      {{ content.booking_head }}
+      <q-card-section class="text-body1 q-pa-none q-ma-none" v-html="content.booking_body" />
     </q-card-section>
     <q-separator />
     <q-card-section class="q-gutter-y-sm">
@@ -19,6 +19,8 @@ import {reactive} from "vue";
 import {SHEET_URL} from "assets/constants";
 
 const emits = defineEmits(['booked'])
+const props = defineProps(['content'])
+
 const patient = reactive({ action:'8sd',name:'',phone:null })
 const misc = reactive({ loading:false })
 function Book(){

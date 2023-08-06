@@ -6,16 +6,16 @@
     <template v-if="status?.Awaiting.length">
       <q-separator inset />
       <q-card-section v-if="status.Awaiting.length === 1">
-        <span v-if="status.Consulting > 0">ഒരാളും കൂടെ ഡോക്ടറെ കാണാൻ വെയിറ്റ് ചെയ്തുകൊണ്ടിരിക്കുന്നു</span>
-        <span v-else>ഒരാൾ ബുക് ചെയ്തു ഡോക്ടറെ കാണാൻ കാത്തിരിക്കുന്നുണ്ട്</span>
+        <span v-if="status.Consulting > 0">{{ content.doctor_consulting_awaiting_one }}</span>
+        <span v-else>{{ content.doctor_awaiting_one }}</span>
       </q-card-section>
       <q-card-section v-if="status.Awaiting.length === 2">
-        <span v-if="status.Consulting > 0">രണ്ടാളുകൾ കൂടി ഡോക്ടറെ കാണാൻ വെയിറ്റ് ചെയ്തുകൊണ്ടിരിക്കുന്നു</span>
-        <span v-else>രണ്ടാളുകൾ ബുക് ചെയ്തു ഡോക്ടറെ കാണാൻ കാത്തിരിക്കുന്നുണ്ട്</span>
+        <span v-if="status.Consulting > 0">{{ content.doctor_consulting_awaiting_two }}</span>
+        <span v-else>{{ content.doctor_awaiting_two }}</span>
       </q-card-section>
       <q-card-section v-if="status.Awaiting.length > 2">
-        <span v-if="status.Consulting > 0">{{ status.Awaiting.length }} ആളുകൾ കൂടി ഡോക്ടറെ കാണാൻ വെയിറ്റ് ചെയ്തുകൊണ്ടിരിക്കുന്നു</span>
-        <span v-else>{{ status.Awaiting.length }} ആളുകൾ ബുക് ചെയ്തു ഡോക്ടറെ കാണാൻ കാത്തിരിക്കുന്നുണ്ട്</span>
+        <span v-if="status.Consulting > 0">{{ status.Awaiting.length }} {{ content.doctor_consulting_awaiting_more }}</span>
+        <span v-else>{{ status.Awaiting.length }} {{ content.doctor_consulting_awaiting_more }}</span>
       </q-card-section>
     </template>
   </q-card>
@@ -24,7 +24,7 @@
 <script setup>
 import {computed} from "vue";
 
-const props = defineProps(['patient','status'])
+const props = defineProps(['patient','status','content'])
 const color = computed(() => props.status?.status === 'Online' ? 'positive' : 'warning')
 const online = computed(() => props.status?.status === 'Online')
 const offline = computed(() => props.status?.status === 'Offline')
