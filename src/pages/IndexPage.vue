@@ -34,7 +34,7 @@ function getPatientFromStorage(){
     for (let key in details) {
       patient_data[key] = details[key]
     }
-    setInterval(No => status.Awaiting.includes(parseInt(No)) ? PATIENT_ONLINE(No) : null,30000,patient.value)
+    setInterval(No => status.value.Awaiting.includes(parseInt(No)) ? PATIENT_ONLINE(No) : null,30000,patient.value)
   }
 }
 
