@@ -28,14 +28,13 @@
     </template>
     <q-dialog v-model="misc.cancel" full-width persistent>
       <q-card>
-        <q-card-section class="text-bold text-h5 text-warning">{{ content.cancel_confirm_title }}</q-card-section>
-        <q-separator />
+        <q-card-section class="text-bold text-h5 text-warning bg-grey-1">{{ content.cancel_confirm_title }}</q-card-section>
         <q-card-section v-html="content.cancel_confirm" />
         <q-card-actions align="between" class="bg-grey-2 no-wrap q-py-md">
           <q-btn label="ക്യാൻസൽ ചെയ്യേണ്ടതില്ല" color="positive" v-close-popup no-wrap />
           <q-btn label="ക്യാൻസൽ ചെയ്യൂ.." color="negative" @click="cancelBooking" no-wrap />
         </q-card-actions>
-        <q-inner-loading :showing="misc.cancelling" label="ക്യാൻസൽ ചെയ്തുകൊണ്ടിരിക്കുകയാണ്... ഒന്ന് വെയിറ്റ് ചെയ്യൂ.." color="warning" />
+        <q-inner-loading :showing="misc.cancelling" label="ക്യാൻസൽ ചെയ്തുകൊണ്ടിരിക്കുകയാണ്... വെയിറ്റ് ചെയ്യൂക.." color="warning" class="text-center text-warning text-bold" />
       </q-card>
     </q-dialog>
   </q-card>

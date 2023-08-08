@@ -1,6 +1,5 @@
 
 const routes = [
-/*
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
@@ -8,7 +7,7 @@ const routes = [
       { path: '', component: () => import('pages/IndexPage.vue') },
     ]
   },
-*/
+/*
   {
     path: '/',
     component: () => import('layouts/AdminLayout.vue'),
@@ -16,6 +15,7 @@ const routes = [
       { path: '', component: () => import('pages/AdminPage.vue') },
     ]
   },
+*/
 
   // Always leave this as last one,
   // but you can also remove it
